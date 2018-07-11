@@ -1,0 +1,24 @@
+version: '3.3'
+services:
+   web:
+      build: .
+      build_args:
+        - JAR_FILE="./target/AportesTruchos.war"
+      ports:
+        - 8080:8080
+
+  db:
+    image: mysql:5.7
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_USER: "usuario"
+      MYSQL_PASSWORD: "1A2B3C4E"
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 9090:8080
