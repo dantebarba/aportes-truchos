@@ -38,3 +38,6 @@ out
 test-output
 atlassian-ide-plugin.xml
 .gradletasknamecache
+
+/aportes-truchos-api/webapp
+/aportes-truchos-frontend/webapp

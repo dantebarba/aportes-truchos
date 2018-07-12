@@ -13,26 +13,39 @@ var mixin = {
 let app = new Vue({
 	el: '#app',
 	mixin: [mixin],
+	components: {
+		    'vue-recaptcha': VueRecaptcha
+	},
 	data: {
-		route: 'http://api:8080/api/',
+		route: 'http://localhost:8080/AportesTruchos/api/aportes/',
 		entries: [],
 		message: '',
-		activeClass: ''
+		activeClass: '',
+		dni: ''
 	},
 	methods: {
+	    onCaptchaExpired: function () {
+	        this.$refs.recaptcha.reset();
+	    },
+	    onCaptchaVerified: function (recaptchaToken) {
+	    	return true;
+	    },
 		hayResultados: function (event) {
-			return false;
+			return this.entries.length > 0;
 		},
 		getAportes: function (event) {
 			let vm = this;
+			let cons = console;
+	        this.$refs.recaptcha.execute();
 			if (vm.checkRecaptcha()) {
-				this.$http.get(this.route).then((response) => {
+				this.$http.get(this.route + this.dni).then((response) => {
 					if (response.status == 200) {
 						if (response.data.length == 0) {
 							vm.viewMessage("Usted no se encuentra en la lista de aportantes", vm.getSuccess());
 						} else {
 							vm.viewMessage("Se han encontrado aportes realizados por usted.", vm.getError());
 						}
+						cons.log(response)
 						for (var i = 0; i < response.data.length; i++) {
 							this.entries.push({
 								nombre: response.data[i].nombre,
@@ -66,7 +79,7 @@ let app = new Vue({
 			this.message = '';
 		},
 		checkRecaptcha: function (event) {
-			return (grecaptcha && grecaptcha.getResponse().length > 0);
+			return true;
 		}
 	}
 })

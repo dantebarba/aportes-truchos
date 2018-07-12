@@ -2,93 +2,112 @@
 <html>
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
-  <title>My App</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
-    crossorigin="anonymous">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
-    crossorigin="anonymous">
-  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-    crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-    crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
-    crossorigin="anonymous"></script>
-  <script src='https://www.google.com/recaptcha/api.js'></script>
-  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
-  <script src='https://www.google.com/recaptcha/api.js'></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>My App</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+	integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
+	crossorigin="anonymous">
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"
+	integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
+	crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+	crossorigin="anonymous"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+	integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+	crossorigin="anonymous"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"
+	integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
+	crossorigin="anonymous"></script>
+<script src='https://www.google.com/recaptcha/api.js'></script>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
+<script
+	src="https://www.google.com/recaptcha/api.js?onload=vueRecaptchaApiLoaded&render=explicit"
+	async defer></script>
+<script
+	src="https://unpkg.com/vue-recaptcha@latest/dist/vue-recaptcha.min.js"></script>
 </head>
 
 <body>
-  <div id="app">
+	<div id="app">
 
-    <nav class="navbar navbar-light bg-light">
-      <a class="navbar-brand" href="#">
-        <p>Aportes Truchos</p>
-      </a>
-    </nav>
-    <div class="container">
-      <div v-if="message" v-bind:class="[activeClass]" role="alert">
-        {{ message }}
-        <button type="button" class="close" v-on:click="dismissMessage()" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="row">
-        <form>
+		<nav class="navbar navbar-light bg-light">
+			<a class="navbar-brand" href="#">
+				<p>Aportes Truchos</p>
+			</a>
+		</nav>
+		<div class="container">
+			<div v-if="message" v-bind:class="[activeClass]" role="alert">
+				{{ message }}
+				<button type="button" class="close" v-on:click="dismissMessage()"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="row">
+				<form>
 
-          <div class="form-group">
-            <label class="control-label">Ingrese su DNI</label>
-            <div class="input-group" id="custom-search-input">
-              <input type="text" class="form-control input-lg" placeholder="Buscar" />
-              <div class="input-group-append">
-                <span class="input-group-btn">
-                  <button v-on:click="getAportes()" class="btn btn-info btn-md" type="button">
-                    <i class="fas fa-search"></i>
-                  </button>
-              </span>
-              </div>
-            </div>
-          </div>
+					<div class="form-group">
+						<label class="control-label">Ingrese su DNI</label>
+						<div class="input-group" id="custom-search-input">
+							<input v-model="dni" type="text" class="form-control input-lg"
+								placeholder="Buscar" />
+							<div class="input-group-append">
+								<span class="input-group-btn">
+									<button v-on:click="getAportes()" class="btn btn-info btn-md"
+										type="button">
+										<i class="fas fa-search"></i>
+									</button>
+								</span>
+							</div>
+						</div>
+					</div>
 
-          <div class="form-group">
-            <div class="col-md-6">
-              <div class="g-recaptcha" data-sitekey="6Lft5GMUAAAAAIGZLpcZN68A52_hP-lTar0oY3tW"></div>
-            </div>
-          </div>
+					<div class="form-group">
+						<div class="col-md-6">
+							<vue-recaptcha ref="recaptcha" @verify="onCaptchaVerified"
+								@expired="onCaptchaExpired"
+								sitekey="6Lft5GMUAAAAAIGZLpcZN68A52_hP-lTar0oY3tW">
+							</vue-recaptcha>
+						</div>
+					</div>
 
-        </form>
-      </div>
-      <div v-if="hayResultados()" class="container">
-        <div class="row">
-          <div class="col-md-6">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th scope="col">Nombre</th>
-                  <th scope="col">Apellido</th>
-                  <th scope="col">DNI</th>
-                  <th scope="col">Tipo de aporte</th>
-                  <th scope="col">Importe</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="entry in entries">
-                  <td>{{ entry.nombre }}</td>
-                  <td>{{ entry.apellido }}</td>
-                  <td>{{ entry.dni }}</td>
-                  <td>{{ entry.tipo }}</td>
-                  <td>{{ entry.importe }}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
-    <script src="index.js"></script>
+				</form>
+			</div>
+			<div v-if="hayResultados()" class="container">
+				<div class="row">
+					<div class="col-md-6">
+						<table class="table">
+							<thead>
+								<tr>
+									<th scope="col">Nombre</th>
+									<th scope="col">Apellido</th>
+									<th scope="col">DNI</th>
+									<th scope="col">Tipo de aporte</th>
+									<th scope="col">Importe</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr v-for="entry in entries">
+									<td>{{ entry.nombre }}</td>
+									<td>{{ entry.apellido }}</td>
+									<td>{{ entry.dni }}</td>
+									<td>{{ entry.tipo }}</td>
+									<td>{{ entry.importe }}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="index.js"></script>
 </body>
 
 </html>
