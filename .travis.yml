@@ -16,7 +16,9 @@ before_script:
   - docker ps -a
   - sleep 30 # Wait for deployment
 
-script: mvn clean test -B -P dev
+script:
+  - cd aportes-truchos-api && mvn clean test -B -P dev
+  - cd ../aportes-truchos-frontend && mvn clena test -B
 
 # whitelist
 branches:
