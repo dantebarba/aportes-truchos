@@ -1,8 +1,6 @@
 package com.github.dantebarba.aportestruchos.controllers;
 
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.ResponseBuilder;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -25,7 +23,8 @@ public class AportesController {
 		return repo.findAll(page);
 	}
 
-	public ResponseBuilder findByDni(String dni) {
-		return Response.ok(repo.findByDni(Utils.normalizar(dni)), MediaType.APPLICATION_JSON);
+	@Transactional(readOnly = true)
+	public List<Aporte> findByDni(String dni) {
+		return repo.findByDni(Utils.normalizar(dni));
 	}
 }

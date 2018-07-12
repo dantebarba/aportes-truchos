@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 public class ApiInfo {
 
 	@GET
-	@Path("/")
 	@Produces(MediaType.APPLICATION_JSON)
 	public String info() {
 		return "API Running. See docs for detail.";

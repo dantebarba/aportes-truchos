@@ -13,7 +13,7 @@ public class JerseyConfig extends ResourceConfig {
     }
     private void registerEndpoints() {
         // register(...);
-    	packages("com.github.dantebarba.mapadeldelito.api");
+    	packages("com.github.dantebarba.aportestruchos.api");
     	register(AportesApi.class);
     	register(ApiInfo.class);
     }

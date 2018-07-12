@@ -22,7 +22,6 @@ public class AportesApi {
 	AportesController aportesController;
 
 	@GET
-	@Path("/")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response listarAportes(@QueryParam("from") Integer from, @QueryParam("size") Integer size) {
 		return Response.ok(aportesController.findAll(new PageRequest(from, size)).getContent()).build();

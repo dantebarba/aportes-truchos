@@ -1,6 +1,8 @@
 package com.github.dantebarba.aportestruchos.domain;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -17,6 +19,7 @@ public class Aporte extends EntidadBase {
 	private String nombre;
 	private String apellido;
 	private String dni;
+	@Enumerated(EnumType.STRING)
 	private TipoOperacion tipo = TipoOperacion.DEPOSITO;
 	private double importe;
 
