@@ -45,14 +45,14 @@ before_install:
   # we need. You should remove this if it's not necessary or you have other
   # scripts handling this.
   # - docker/web/provision.sh
-  
+
 install:
   # Setup your application stack. You may need to tweak these commands if you
   # doing out-of-the-ordinary docker-compose builds.
   - docker-compose pull
   - docker-compose start
 
-script: mvn clean test -B
+script: mvn clean test -B -P dev
 
 # whitelist
 branches:
