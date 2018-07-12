@@ -18,7 +18,7 @@ before_script:
 
 script:
   - cd aportes-truchos-api && mvn clean test -B -P dev
-  - cd ../aportes-truchos-frontend && mvn clena test -B
+  - cd ../aportes-truchos-frontend && mvn clean test -B
 
 # whitelist
 branches:
