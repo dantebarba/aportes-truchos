@@ -14,9 +14,15 @@ before_script:
   - sudo service mysql stop
   - docker-compose up -d
   - docker ps -a
-  - sleep 30 # Wait for deployment
+  - sleep 20 # Wait for deployment
 
-script: mvn clean test -B -P dev
+cache:
+  directories:
+  - $HOME/.m2
+
+script:
+  - cd aportes-truchos-api && mvn clean test -B -P dev
+  - cd ../aportes-truchos-frontend && mvn clean test -B
 
 # whitelist
 branches:
