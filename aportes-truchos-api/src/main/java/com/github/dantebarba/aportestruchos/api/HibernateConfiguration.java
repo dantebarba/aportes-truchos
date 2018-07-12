@@ -4,9 +4,10 @@ import java.util.Properties;
 
 import javax.sql.DataSource;
 
-import org.apache.commons.dbcp.BasicDataSource;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -27,17 +28,11 @@ public class HibernateConfiguration {
 	}
 
 	@Bean
+	@Primary
 	public DataSource dataSource() {
-		BasicDataSource dataSource = new BasicDataSource();
-		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-		dataSource.setUrl("jdbc:mysql://127.0.0.1:3306/aportes");
-		dataSource.setUsername("usuario");
-		dataSource.setPassword("1A2B3C4E");
-		/*
-		 * DOTO agregar no usar usuario root, usuario y pass en el script de la
-		 * db somos grupo 23
-		 */
-		return dataSource;
+		DataSourceBuilder factory = DataSourceBuilder.create().url("jdbc:mysql://aportesdb:3306/aportes")
+				.username("root").password("1A2B3C4E").driverClassName("com.mysql.jdbc.Driver");
+		return factory.build();
 	}
 
 	@Bean

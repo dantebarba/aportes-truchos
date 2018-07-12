@@ -1,10 +1,12 @@
 package com.github.dantebarba.aportestruchos.domain;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 import com.github.dantebarba.aportestruchos.domain.generics.EntidadBase;
 
+@Entity
 public class Aporte extends EntidadBase {
 
 	@Id

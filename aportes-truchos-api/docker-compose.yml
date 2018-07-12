@@ -1,24 +1,31 @@
 version: '3.3'
 services:
-   web:
-      build: .
-      build_args:
-        - JAR_FILE="./target/AportesTruchos.war"
-      ports:
-        - 8080:8080
-
-  db:
+  web:
+    image: tomcat:8-jre8
+    container_name: web
+    restart: always
+    ports:
+      - 8080:8080
+    volumes:
+      - ./target:/usr/local/tomcat/webapps/
+    depends_on:
+      - aportesdb
+  aportesdb:
     image: mysql:5.7
     restart: always
+    container_name: aportesdb
     ports:
       - 3306:3306
     environment:
+      MYSQL_DATABASE: "aportes"
       MYSQL_USER: "usuario"
-      MYSQL_PASSWORD: "1A2B3C4E"
-      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_PASSWORD: "123ABC123"
+      MYSQL_ROOT_PASSWORD: "1A2B3C4E"
+      MYSQL_ROOT_HOST: "%"
 
   adminer:
     image: adminer
+    container_name: adminer
     restart: always
     ports:
       - 9090:8080
