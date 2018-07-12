@@ -25,29 +25,32 @@ let app = new Vue({
 		},
 		getAportes: function (event) {
 			let vm = this;
-			this.$http.get(this.route).then((response) => {
-				if (response.status == 200) {
-					if (response.data.length == 0) {
-						vm.viewMessage("Usted no se encuentra en la lista de aportantes", vm.getSuccess());
-					} else {
-						vm.viewMessage("Se han encontrado aportes realizados por usted.", vm.getError());
+			if (vm.checkRecaptcha()) {
+				this.$http.get(this.route).then((response) => {
+					if (response.status == 200) {
+						if (response.data.length == 0) {
+							vm.viewMessage("Usted no se encuentra en la lista de aportantes", vm.getSuccess());
+						} else {
+							vm.viewMessage("Se han encontrado aportes realizados por usted.", vm.getError());
+						}
+						for (var i = 0; i < response.data.length; i++) {
+							this.entries.push({
+								nombre: response.data[i].nombre,
+								apellido: response.data[i].apellido,
+								dni: response.data[i].dni,
+								tipo: response.data[i].tipo,
+								importe: response.data[i].importe
+							});
+						}
 					}
-					for(var i = 0; i< response.data.length;i++)
-					{
-						this.entries.push({
-							nombre: response.data[i].nombre,
-							apellido: response.data[i].apellido,
-							dni: response.data[i].dni,
-							tipo: response.data[i].tipo,
-							importe: response.data[i].importe
-						});
+					if (response.status == 404) {
+						vm.viewMessage("Ops!, ocurrió un problema", vm.getError());
 					}
-				}
-				if (response.status == 404) {
-					vm.viewMessage("Ops!, ocurrió un problema", vm.getError());
-				}
 
-			}, error => {vm.viewMessage("Ops!, ocurrió un problema", vm.getError())})
+				}, error => { vm.viewMessage("Ops!, ocurrió un problema", vm.getError()) })
+			} else {
+				vm.viewMessage("Por favor compruebe el captcha primero.", vm.getError());
+			}
 		},
 		viewMessage: function (message2, severity) {
 			this.activeClass = severity;
@@ -56,11 +59,14 @@ let app = new Vue({
 		getError: function () {
 			return 'alert alert-danger';
 		},
-		getSuccess: function() {
+		getSuccess: function () {
 			return 'alert alert-success';
 		},
 		dismissMessage: function (event) {
 			this.message = '';
+		},
+		checkRecaptcha: function (event) {
+			return (grecaptcha && grecaptcha.getResponse().length > 0);
 		}
 	}
 })
