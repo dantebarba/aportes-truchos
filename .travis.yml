@@ -11,6 +11,7 @@ services:
   - docker
 
 before_script:
+  - sudo service mysql stop
   - docker-compose up -d
   - docker ps -a
   - sleep 30 # Wait for deployment
