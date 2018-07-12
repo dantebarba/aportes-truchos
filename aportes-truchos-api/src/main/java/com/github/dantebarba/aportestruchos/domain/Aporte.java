@@ -1,17 +1,24 @@
 package com.github.dantebarba.aportestruchos.domain;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import com.github.dantebarba.aportestruchos.domain.generics.EntidadBase;
 
 @Entity
-public class Aporte {
-	
+@Table(name = "aportes")
+public class Aporte extends EntidadBase {
+
+	@Id
+	@GeneratedValue
+	private Long id;
 	private String nombre;
 	private String apellido;
 	private String dni;
-	private TipoOperacion tipoOperacion = TipoOperacion.DEPOSITO;
+	private TipoOperacion tipo = TipoOperacion.DEPOSITO;
 	private double importe;
-	
-
 
 	public double getImporte() {
 		return importe;
@@ -21,12 +28,12 @@ public class Aporte {
 		this.importe = importe;
 	}
 
-	public TipoOperacion getTipoOperacion() {
-		return tipoOperacion;
+	public TipoOperacion getTipo() {
+		return tipo;
 	}
 
-	public void setTipoOperacion(TipoOperacion tipoOperacion) {
-		this.tipoOperacion = tipoOperacion;
+	public void setTipo(TipoOperacion tipoOperacion) {
+		this.tipo = tipoOperacion;
 	}
 
 	public String getDni() {
@@ -51,6 +58,11 @@ public class Aporte {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+
+	@Override
+	public Long getId() {
+		return this.id;
 	}
 
 }

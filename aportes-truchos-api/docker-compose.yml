@@ -4,12 +4,18 @@ services:
     image: tomcat:8-jre8
     container_name: web
     restart: always
+    command: ["catalina.sh", "jpda", "run"]
+    environment:
+      JPDA_ADDRESS: 8000
+      JPDA_TRANSPORT: dt_socket
     ports:
       - 8080:8080
+      - 8000:8000
     volumes:
       - ./target:/usr/local/tomcat/webapps/
     depends_on:
       - aportesdb
+
   aportesdb:
     image: mysql:5.7
     restart: always
