@@ -1,8 +1,8 @@
 version: '3.3'
 services:
-  web:
+  api:
     image: tomcat:8-jre8
-    container_name: web
+    container_name: api
     restart: always
     command: ["catalina.sh", "jpda", "run"]
     environment:
@@ -12,9 +12,20 @@ services:
       - 8080:8080
       - 8000:8000
     volumes:
-      - ./target:/usr/local/tomcat/webapps/
+      - ./aportes-truchos-api/webapp:/usr/local/tomcat/webapps/
     depends_on:
       - aportesdb
+
+  app:
+    image: tomcat:8-jre8
+    container_name: app
+    restart: always
+    ports:
+      - 80:8080
+    volumes:
+      - ./aportes-truchos-frontend/webapp:/usr/local/tomcat/webapps/
+    depends_on:
+      - api
 
   aportesdb:
     image: mysql:5.7

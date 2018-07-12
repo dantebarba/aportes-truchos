@@ -14,7 +14,7 @@ let app = new Vue({
 	el: '#app',
 	mixin: [mixin],
 	data: {
-		route: 'localhost:8080/api/',
+		route: 'http://api:8080/api/',
 		entries: [],
 		message: '',
 		activeClass: ''
