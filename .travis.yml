@@ -16,6 +16,10 @@ before_script:
   - docker ps -a
   - sleep 30 # Wait for deployment
 
+cache:
+  directories:
+  - $HOME/.m2
+
 script:
   - cd aportes-truchos-api && mvn clean test -B -P dev
   - cd ../aportes-truchos-frontend && mvn clean test -B
