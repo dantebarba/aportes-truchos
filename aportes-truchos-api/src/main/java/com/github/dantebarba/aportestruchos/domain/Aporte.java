@@ -1,17 +1,9 @@
 package com.github.dantebarba.aportestruchos.domain;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-
-import com.github.dantebarba.aportestruchos.domain.generics.EntidadBase;
 
 @Entity
-public class Aporte extends EntidadBase {
-
-	@Id
-	@GeneratedValue
-	private Long id;
+public class Aporte {
 	
 	private String nombre;
 	private String apellido;
@@ -19,10 +11,7 @@ public class Aporte extends EntidadBase {
 	private TipoOperacion tipoOperacion = TipoOperacion.DEPOSITO;
 	private double importe;
 	
-	@Override
-	public Long getId() {
-		return this.id;
-	}
+
 
 	public double getImporte() {
 		return importe;
