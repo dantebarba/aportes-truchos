@@ -1,4 +1,4 @@
-package com.github.dantebarba.aportestruchos.api;
+package com.github.dantebarba.aportestruchos.config;
 
 import java.util.Properties;
 
