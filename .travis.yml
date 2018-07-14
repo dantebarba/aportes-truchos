@@ -14,7 +14,7 @@ before_script:
   - sudo service mysql stop
   - docker-compose up -d
   - docker ps -a
-  - sleep 30 # Wait for deployment
+  - sleep 20 # Wait for deployment
 
 cache:
   directories:
