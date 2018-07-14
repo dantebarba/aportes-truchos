@@ -1,5 +1,16 @@
 version: '3.3'
 services:
+  apache:
+    image: jmferrer/apache2-reverse-proxy
+    container_name: apache
+    ports:
+      - 80:80
+    volumes:
+      - ./proxy:/etc/apache2/sites-enabled
+    depends_on:
+      - app
+      - api
+
   api:
     image: tomcat:8-jre8
     container_name: api
@@ -9,7 +20,6 @@ services:
       JPDA_ADDRESS: 8000
       JPDA_TRANSPORT: dt_socket
     ports:
-      - 8080:8080
       - 8000:8000
     volumes:
       - ./aportes-truchos-api/webapp:/usr/local/tomcat/webapps/
@@ -20,8 +30,6 @@ services:
     image: tomcat:8-jre8
     container_name: app
     restart: always
-    ports:
-      - 80:8080
     volumes:
       - ./aportes-truchos-frontend/webapp:/usr/local/tomcat/webapps/
     depends_on:
