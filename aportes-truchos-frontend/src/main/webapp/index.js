@@ -1,6 +1,5 @@
 
 let anUrl = settingsUrl();
-let protocol = protocol();
 
 let app = new Vue({
 	el: '#app',
@@ -8,7 +7,7 @@ let app = new Vue({
 		    'vue-recaptcha': VueRecaptcha
 	},
 	data: {
-		url: protocol + anUrl,
+		url: anUrl,
 		entries: [],
 		message: '',
 		activeClass: '',
