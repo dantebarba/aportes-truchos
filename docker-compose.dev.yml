@@ -7,7 +7,7 @@ services:
     ports:
       - 80:80
     volumes:
-      - ./proxy:/etc/apache2/sites-enabled
+      - ./proxy-dev:/etc/apache2/sites-enabled
     depends_on:
       - app
       - api
