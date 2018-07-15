@@ -2,6 +2,7 @@ package com.github.dantebarba.aportestruchos.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.github.dantebarba.aportestruchos.domain.EventLog;
@@ -13,9 +14,9 @@ public class LoggingController {
 	@Autowired
 	LoggingRepository repo;
 	
-	@Transactional
+	@Transactional(propagation = Propagation.REQUIRES_NEW)
 	public EventLog log(String ip, String request) {
-		return repo.save(new EventLog().create(ip, request));
+		return repo.saveAndFlush(new EventLog().create(ip, request));
 	}
 	
 }

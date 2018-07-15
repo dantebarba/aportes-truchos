@@ -5,5 +5,4 @@ public class RequestDto {
 	public String url = "";
 	public String uri = "";
 	public String os = "";
-	public String browser = "";
 }
