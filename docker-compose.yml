@@ -52,7 +52,7 @@ services:
       MYSQL_ROOT_PASSWORD: "1A2B3C4E"
       MYSQL_ROOT_HOST: "%"
     volumes:
-      - mysqlData:/var/lib/mysql
+      - data-volume:/var/lib/mysql
 
 volumes:
-  - mysqlData
+  data-volume:
