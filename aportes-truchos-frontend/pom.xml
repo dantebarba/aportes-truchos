@@ -15,7 +15,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
-		<api.url>"https://aportestruchos.ml/api"</api.url>
+		<api.url>"aportestruchos.ml/api"</api.url>
 	</properties>
 
 	<dependencies>
@@ -124,7 +124,7 @@
 		<profile>
 			<id>dev</id>
 			<properties>
-				<api.url>"http://localhost/api"</api.url>
+				<api.url>"localhost/api"</api.url>
 			</properties>
 		</profile>
 	</profiles>
