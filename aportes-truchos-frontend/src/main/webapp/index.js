@@ -1,3 +1,6 @@
+
+let anUrl = settingsUrl();
+
 var mixin = {
 	methods: {
 		foo: function () {
@@ -17,7 +20,7 @@ let app = new Vue({
 		    'vue-recaptcha': VueRecaptcha
 	},
 	data: {
-		route: 'http://localhost:8080/AportesTruchos/api/aportes/',
+		url: anUrl,
 		entries: [],
 		message: '',
 		activeClass: '',
@@ -27,20 +30,20 @@ let app = new Vue({
 	    onCaptchaExpired: function () {
 	        this.$refs.recaptcha.reset();
 	    },
-	    onCaptchaVerified: function (recaptchaToken) {
-	    	return true;
+	    getAportes: function (recaptchaToken) {
+	    	return this.$refs.recaptcha.execute();
 	    },
 		hayResultados: function (event) {
 			return this.entries.length > 0;
 		},
-		getAportes: function (event) {
+		onCaptchaVerified: function (recaptchaToken) {
 			let vm = this;
 			let cons = console;
-	        this.$refs.recaptcha.execute();
-			if (vm.checkRecaptcha()) {
-				this.$http.get(this.route + this.dni).then((response) => {
+			vm.$refs.recaptcha.reset();
+				this.$http.get(this.url + '/aportes/' + this.dni).then((response) => {
 					if (response.status == 200) {
 						if (response.data.length == 0) {
+							this.entries = [];
 							vm.viewMessage("Usted no se encuentra en la lista de aportantes", vm.getSuccess());
 						} else {
 							vm.viewMessage("Se han encontrado aportes realizados por usted.", vm.getError());
@@ -57,13 +60,11 @@ let app = new Vue({
 						}
 					}
 					if (response.status == 404) {
+						this.entries = [];
 						vm.viewMessage("Ops!, ocurrió un problema", vm.getError());
 					}
 
-				}, error => { vm.viewMessage("Ops!, ocurrió un problema", vm.getError()) })
-			} else {
-				vm.viewMessage("Por favor compruebe el captcha primero.", vm.getError());
-			}
+				}, error => { vm.viewMessage("Ops!, ocurrió un problema", vm.getError()); this.entries = []; })
 		},
 		viewMessage: function (message2, severity) {
 			this.activeClass = severity;

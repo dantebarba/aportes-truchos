@@ -12,7 +12,7 @@ services:
 
 before_script:
   - sudo service mysql stop
-  - docker-compose up -d
+  - docker-compose -f docker-compose.dev.yml up aportesdb -d
   - docker ps -a
   - sleep 20 # Wait for deployment
 
