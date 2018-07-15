@@ -60,7 +60,7 @@
 								placeholder="Buscar" />
 							<div class="input-group-append">
 								<span class="input-group-btn">
-									<button v-on:click="getAportes()" class="btn btn-info btn-md"
+									<button v-on:click="getAportes()" :disabled="ajaxInProgress"  class="btn btn-info btn-md"
 										type="button">
 										<i class="fas fa-search"></i>
 									</button>

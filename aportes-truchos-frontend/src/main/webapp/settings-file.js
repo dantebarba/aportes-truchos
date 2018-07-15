@@ -2,6 +2,11 @@
  * 
  */
 
-function settingsUrl() {
-	return ${api.url};
+function protocol() {
+	return window.location.protocol;
 }
+
+function settingsUrl() {
+	return protocol()  + "//" + ${api.url};
+}
+
