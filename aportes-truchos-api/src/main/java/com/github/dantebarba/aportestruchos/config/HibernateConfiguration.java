@@ -50,7 +50,7 @@ public class HibernateConfiguration {
 		return this.getDataSourceBuilder().build();
 	}
 
-	@Bean
+	@Bean(name = "transactionManager")
 	public PlatformTransactionManager hibernateTransactionManager() {
 		HibernateTransactionManager transactionManager = new HibernateTransactionManager();
 		transactionManager.setSessionFactory(sessionFactory().getObject());
