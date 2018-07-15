@@ -6,6 +6,7 @@ services:
     container_name: apache
     ports:
       - 80:80
+      - 443:443
     volumes:
       - ./proxy:/etc/apache2/sites-enabled
       - /etc/letsencrypt:/etc/apache2/ssl:ro
