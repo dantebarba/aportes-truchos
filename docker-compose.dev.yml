@@ -6,6 +6,8 @@ services:
     container_name: apache
     ports:
       - 80:80
+    volumes:
+      - ./proxy:/etc/apache2/sites-enabled
     depends_on:
       - app
       - api
