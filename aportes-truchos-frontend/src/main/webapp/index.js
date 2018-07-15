@@ -11,13 +11,16 @@ let app = new Vue({
 		entries: [],
 		message: '',
 		activeClass: '',
-		dni: ''
+		dni: '',
+		ajaxInProgress: false
 	},
 	methods: {
 	    onCaptchaExpired: function () {
+	    	ajaxInProgress = false;
 	        this.$refs.recaptcha.reset();
 	    },
 	    getAportes: function (recaptchaToken) {
+	    	ajaxInProgress = true;
 	    	return this.$refs.recaptcha.execute();
 	    },
 		hayResultados: function (event) {
@@ -27,8 +30,10 @@ let app = new Vue({
 			let vm = this;
 			let cons = console;
 			vm.$refs.recaptcha.reset();
+			this.ajaxInProgress = true;
 			this.entries = [];
 				this.$http.get(this.url + '/aportes/' + this.dni).then((response) => {
+					this.ajaxInProgress = false;
 					if (response.status == 200) {
 						if (response.data.length == 0) {
 							vm.viewMessage("Usted no se encuentra en la lista de aportantes", vm.getSuccess());
@@ -50,7 +55,7 @@ let app = new Vue({
 						vm.viewMessage("Ops!, ocurrió un problema", vm.getError());
 					}
 
-				}, error => { vm.viewMessage("Ops!, ocurrió un problema", vm.getError())})
+				}, error => { vm.viewMessage("Ops!, ocurrió un problema", vm.getError()); this.ajaxInProgress = false;})
 		},
 		viewMessage: function (message2, severity) {
 			this.activeClass = severity;
